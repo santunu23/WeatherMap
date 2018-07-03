@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Weather app</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script type="application/javascript" src="js/jquery-1.11.2.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  $('#submitweather').click(function(){
+    var city=$('#city').val();
+            
+	      $.ajax({
+		     url: "http://api.openweathermap.org/data/2.5/weather?appid=40ae24753b1fbf9b0bcb99a5b02c6d0a&q="+city,
+			 type:"GET",
+			 dataType:"jsonp",
+			 success:function(data){
+			    var widget=show(data);
+				$('#show').html(widget);
+				//$('#city').var('');
+			 }
+		  
+		  });
+	
+	
+ 
+ });
+}); 
+function show(data){
+return "<tr><td><h3 style='font size:40px; font-weight:bold;'>Current wather for"+data.name+", "+data.sys.country+"</h3>"+
+"<td><h3><strong>Weather</strong>: "+data.weather[0].main+"</h3></td>"+
+"<td><h3><strong>Description</strong>: "+data.weather[0].description+"</h3></td>"+
+"<td><h3><strong>Temperature</strong>: "+data.main.temp+"</h3></td>"+
+"<td><h3><strong>Pressures</strong>: "+data.main.pressure+"</h3></td>"+
+"<td><h3><strong>Humidity</strong>: "+data.main.humidity+"</h3></td>"+
+"<td><h3><strong>Min. Temperature</strong>: "+data.main.temp_min+"</h3></td>"+
+"<td><h3><strong>Max. Temperature</strong>: "+data.main.temp_max+"</h3></td>"+
+"<td><h3><strong>Wind Speeds</strong>: "+data.wind.speed+"</h3></td>"+
+"<td><h3><strong>Wind Direction</strong>: "+data.wind.deg+"</h3></td></tr>";
+}
+</script>
+
+</head>
+<body>
+<div class="container">
+ <span id="error"></span>
+<input type="text" name="city" id="city">
+<button type="button" id="submitweather">Search</button>
+<div id="show"></div>
+</div>
+
+</body>
+
+</html>
